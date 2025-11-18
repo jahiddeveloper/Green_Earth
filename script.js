@@ -25,11 +25,11 @@ let categoryId = (id) => {
 
 let loadCart = () => {
     fetch("https://openapi.programming-hero.com/api/plants")
-    .then(res => res.json())
-    .then(json => {
-        // console.log(json.plants)
-        displayCategoryId(json.plants)
-    })
+        .then(res => res.json())
+        .then(json => {
+            // console.log(json.plants)
+            displayCategoryId(json.plants)
+        })
 }
 
 
