@@ -97,12 +97,15 @@ let displayCategoryId = (plants) => {
   })
 }
 
+let count = 0;
 
 let addToCart = (addBtns) => {
 
   let cart = addBtns.parentNode.parentNode
   let cartName = cart.querySelector(".plant-name").innerText;
   let cartPrice = parseInt(cart.querySelector(".cart-price").innerText)
+
+
   // console.log(cartName, cartPrice)
 
   let addToCartContainer = document.getElementById("addToCart-container");
@@ -115,7 +118,7 @@ let addToCart = (addBtns) => {
                 <div>
                   <h1 class="text-lg font-bold">${cartName}</h1>
                   <p class="text-gray-500 mt-1">
-                    ৳ <span>${cartPrice}</span> x <span>1</span>
+                    ৳ <span>${cartPrice}</span> x <span class="quantity">${1}</span>
                   </p>
                 </div>
 
