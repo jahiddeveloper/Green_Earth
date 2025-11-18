@@ -2,45 +2,60 @@
 // Load Category
 
 let loadCategory = () => {
-    fetch("https://openapi.programming-hero.com/api/categories")
-        .then(res => res.json())
-        .then(json => {
-            // console.log(json.categories)
-            displayCategory(json.categories);
-        })
+  fetch("https://openapi.programming-hero.com/api/categories")
+    .then(res => res.json())
+    .then(json => {
+      // console.log(json.categories)
+      displayCategory(json.categories);
+    })
+}
+
+// Remove active
+
+let removeActive = () => {
+  let allBtns = document.querySelectorAll(".all-btn");
+  allBtns.forEach(allBtn => {
+    allBtn.classList.remove("active");
+  })
 }
 
 
+// Category Id
+
 let categoryId = (id) => {
-    fetch(`https://openapi.programming-hero.com/api/category/${id}`)
-        .then(res => res.json())
-        .then(json => {
-            // console.log(json.plants);
-            displayCategoryId(json.plants);
-        })
+  fetch(`https://openapi.programming-hero.com/api/category/${id}`)
+    .then(res => res.json())
+    .then(json => {
+
+      removeActive();
+      let categoryBtn = document.getElementById(`category-btn-${id}`);
+      categoryBtn.classList.add("active");
+      // console.log(json.plants);
+      displayCategoryId(json.plants);
+    })
 }
 
 
 // Load Cart 
 
 let loadCart = () => {
-    fetch("https://openapi.programming-hero.com/api/plants")
-        .then(res => res.json())
-        .then(json => {
-            // console.log(json.plants)
-            displayCategoryId(json.plants)
-        })
+  fetch("https://openapi.programming-hero.com/api/plants")
+    .then(res => res.json())
+    .then(json => {
+      // console.log(json.plants)
+      displayCategoryId(json.plants)
+    })
 }
 
 
 let displayCategoryId = (plants) => {
 
-    let cartContainer = document.getElementById("cart-container");
-    cartContainer.innerHTML = "";
+  let cartContainer = document.getElementById("cart-container");
+  cartContainer.innerHTML = "";
 
-    plants.forEach(plant => {
-        let div = document.createElement("div")
-        div.innerHTML = `
+  plants.forEach(plant => {
+    let div = document.createElement("div")
+    div.innerHTML = `
             <div
                 class="card bg-base-100 w-94 shadow-lg mx-auto md:mx-0 block"
               >
@@ -52,7 +67,7 @@ let displayCategoryId = (plants) => {
                   />
                 </figure>
                 <div class="card-body">
-                  <h2 class="text-xl font-bold">${plant.name}</h2>
+                  <h2 class="text-xl font-bold plant-name">${plant.name}</h2>
                   <p>
                     ${plant.description}
                   </p>
@@ -64,12 +79,12 @@ let displayCategoryId = (plants) => {
                       <p>${plant.category}</p>
                     </div>
                     <div class="font-bold text-lg">
-                      <p>৳ <span>${plant.price}</span></p>
+                      <p>৳ <span class="cart-price">${plant.price}</span></p>
                     </div>
                   </div>
 
                   <div class="card-actions justify-center mt-3">
-                    <button
+                    <button onclick="addToCart(this)"
                       class="btn btn-primary w-full bg-[#15803d] border-none"
                     >
                       Add To Card
@@ -78,9 +93,42 @@ let displayCategoryId = (plants) => {
                 </div>
               </div>
         `
-        cartContainer.append(div);
-    })
+    cartContainer.append(div);
+  })
 }
+
+
+let addToCart = (addBtns) => {
+
+  let cart = addBtns.parentNode.parentNode
+  let cartName = cart.querySelector(".plant-name").innerText;
+  let cartPrice = parseInt(cart.querySelector(".cart-price").innerText)
+  // console.log(cartName, cartPrice)
+
+  let addToCartContainer = document.getElementById("addToCart-container");
+
+  let div = document.createElement("div");
+  div.innerHTML = `
+              <div
+                class="flex justify-between items-center mt-2 shadow-sm py-3 px-3 bg-white rounded-lg"
+              >
+                <div>
+                  <h1 class="text-lg font-bold">${cartName}</h1>
+                  <p class="text-gray-500 mt-1">
+                    ৳ <span>${cartPrice}</span> x <span>1</span>
+                  </p>
+                </div>
+
+                <div
+                  class="hover:text-red-500 cursor-pointer hover:transition duration-300"
+                >
+                  <i class="fa-solid fa-x"></i>
+                </div>
+              </div>
+  `
+  addToCartContainer.append(div);
+}
+
 
 loadCart();
 categoryId();
@@ -88,20 +136,20 @@ categoryId();
 
 let displayCategory = (categories) => {
 
-    let categoryContainer = document.getElementById("category-container");
+  let categoryContainer = document.getElementById("category-container");
 
-    categories.forEach((category) => {
+  categories.forEach((category) => {
 
-        let btn = document.createElement("button");
-        btn.innerHTML = `
-            <button onclick="categoryId(${category.id})"
-                class="w-70 text-left py-3 pl-3 hover:bg-[#15803d] hover:text-white cursor-pointer hover:transition duration-300 rounded-lg"
+    let btn = document.createElement("button");
+    btn.innerHTML = `
+            <button id="category-btn-${category.id}" onclick="categoryId(${category.id})"
+                class="all-btn w-70 text-left py-3 pl-3 hover:bg-[#15803d] hover:text-white cursor-pointer hover:transition duration-300 rounded-lg"
               >
                 ${category.category_name}
               </button>
         `
-        categoryContainer.append(btn);
-    })
+    categoryContainer.append(btn);
+  })
 }
 
 loadCategory();
