@@ -130,15 +130,21 @@
           <aside class="col-span-2">
             <h1 class="text-xl font-bold">Categories</h1>
 
-            <div id="category-container" class="mt-6"></div>
+            <div id="category-container" class="mt-6">
+              <button
+                onclick="loadCart()"
+                class="w-70 text-left py-3 pl-3 hover:bg-[#15803d] hover:text-white cursor-pointer hover:transition duration-300 rounded-lg"
+              >
+                All Trees
+              </button>
+            </div>
           </aside>
 
           <div class="col-span-8">
-            <div id="cart-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              
-              
-
-            </div>
+            <div
+              id="cart-container"
+              class="grid grid-cols-1 md:grid-cols-3 gap-4"
+            ></div>
           </div>
 
           <aside class="bg-violet-200 col-span-2 p-4 rounded-lg shadow-sm">

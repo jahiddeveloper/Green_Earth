@@ -20,6 +20,19 @@ let categoryId = (id) => {
         })
 }
 
+
+// Load Cart 
+
+let loadCart = () => {
+    fetch("https://openapi.programming-hero.com/api/plants")
+    .then(res => res.json())
+    .then(json => {
+        // console.log(json.plants)
+        displayCategoryId(json.plants)
+    })
+}
+
+
 let displayCategoryId = (plants) => {
 
     let cartContainer = document.getElementById("cart-container");
@@ -69,6 +82,7 @@ let displayCategoryId = (plants) => {
     })
 }
 
+loadCart();
 categoryId();
 
 
