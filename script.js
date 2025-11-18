@@ -11,23 +11,22 @@ let loadCategory = () => {
 }
 
 
-// Load Cart 
-
-let loadCart = () => {
-    fetch("https://openapi.programming-hero.com/api/plants")
+let categoryId = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/category/${id}`)
         .then(res => res.json())
         .then(json => {
             // console.log(json.plants);
-            displayCart(json.plants);
+            displayCategoryId(json.plants);
         })
 }
 
-let displayCart = (plants) => {
+let displayCategoryId = (plants) => {
 
-    let cartContiner = document.getElementById("cart-container");
+    let cartContainer = document.getElementById("cart-container");
+    cartContainer.innerHTML = "";
 
-    plants.forEach((plant) => {
-        let div = document.createElement("div");
+    plants.forEach(plant => {
+        let div = document.createElement("div")
         div.innerHTML = `
             <div
                 class="card bg-base-100 w-94 shadow-lg mx-auto md:mx-0 block"
@@ -66,11 +65,11 @@ let displayCart = (plants) => {
                 </div>
               </div>
         `
-        cartContiner.append(div);
+        cartContainer.append(div);
     })
 }
 
-loadCart();
+categoryId();
 
 
 let displayCategory = (categories) => {
@@ -81,7 +80,7 @@ let displayCategory = (categories) => {
 
         let btn = document.createElement("button");
         btn.innerHTML = `
-            <button
+            <button onclick="categoryId(${category.id})"
                 class="w-70 text-left py-3 pl-3 hover:bg-[#15803d] hover:text-white cursor-pointer hover:transition duration-300 rounded-lg"
               >
                 ${category.category_name}
