@@ -10,6 +10,48 @@ let loadCategory = () => {
     })
 }
 
+// Modal
+
+let my_modal_5 = (id) => {
+  fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
+  .then(res => res.json())
+  .then(json => {
+    // console.log(json.plants)
+    displayDetails(json.plants)
+  })
+}
+
+displayDetails = (details) => {
+  
+  let detailsContainer = document.getElementById("details-container");
+  
+  detailsContainer.innerHTML = `
+            <h1 class="text-2xl font-bold">${details.name}</h1>
+              <figure>
+                  <img
+                    src="${details.image}"
+                    alt="Shoes"
+                    class="p-2 h-70 w-full object-cover rounded-2xl"
+                  />
+                </figure>
+              <p class="mt-4 leading-8">
+                ${details.description}
+              </p>
+
+              <div class="flex justify-between items-center mt-3">
+                <div class="text-[#15803d] px-5 py-2 bg-[#dcfce7] rounded-3xl">
+                  <p>${details.category}</p>
+                </div>
+                <div class="font-bold text-lg">
+                  <p>৳ <span class="cart-price">${details.price}</span></p>
+                </div>
+              </div>
+  `
+  document.getElementById("my_modal_5").showModal();
+}
+
+my_modal_5();
+
 // Remove active
 
 let removeActive = () => {
@@ -61,9 +103,10 @@ let displayCategoryId = (plants) => {
               >
                 <figure>
                   <img
+                  onclick="my_modal_5(${plant.id})"
                     src="${plant.image}"
                     alt="Shoes"
-                    class="p-2 h-55 w-full object-cover"
+                    class="p-2 h-55 w-full object-cover cursor-pointer"
                   />
                 </figure>
                 <div class="card-body">
@@ -118,7 +161,7 @@ let addToCart = (addBtns) => {
                 <div>
                   <h1 class="text-lg font-bold">${cartName}</h1>
                   <p class="text-gray-500 mt-1">
-                    ৳ <span>${cartPrice}</span> x <span class="quantity">${1}</span>
+                    ৳ <span>${cartPrice}</span> x <span>1</span>
                   </p>
                 </div>
 
