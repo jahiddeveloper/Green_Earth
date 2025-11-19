@@ -14,17 +14,17 @@ let loadCategory = () => {
 
 let my_modal_5 = (id) => {
   fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
-  .then(res => res.json())
-  .then(json => {
-    // console.log(json.plants)
-    displayDetails(json.plants)
-  })
+    .then(res => res.json())
+    .then(json => {
+      // console.log(json.plants)
+      displayDetails(json.plants)
+    })
 }
 
 displayDetails = (details) => {
-  
+
   let detailsContainer = document.getElementById("details-container");
-  
+
   detailsContainer.innerHTML = `
             <h1 class="text-2xl font-bold">${details.name}</h1>
               <figure>
