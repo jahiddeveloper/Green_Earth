@@ -65,6 +65,10 @@ let removeActive = () => {
 // Category Id
 
 let categoryId = (id) => {
+
+  document.getElementById("plant-container").classList.add("hidden");
+  document.getElementById("loading-spinner").classList.remove("hidden");
+
   fetch(`https://openapi.programming-hero.com/api/category/${id}`)
     .then(res => res.json())
     .then(json => {
@@ -138,6 +142,8 @@ let displayCategoryId = (plants) => {
         `
     cartContainer.append(div);
   })
+  document.getElementById("plant-container").classList.remove("hidden");
+  document.getElementById("loading-spinner").classList.add("hidden");
 }
 
 let count = 0;
