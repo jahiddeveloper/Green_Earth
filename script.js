@@ -148,38 +148,47 @@ let displayCategoryId = (plants) => {
 
 let count = 0;
 
+
 let addToCart = (addBtns) => {
 
-  let cart = addBtns.parentNode.parentNode
+  let cart = addBtns.parentNode.parentNode;
   let cartName = cart.querySelector(".plant-name").innerText;
-  let cartPrice = parseInt(cart.querySelector(".cart-price").innerText)
-
-
-  // console.log(cartName, cartPrice)
+  let cartPrice = parseInt(cart.querySelector(".cart-price").innerText);
 
   let addToCartContainer = document.getElementById("addToCart-container");
 
-  let div = document.createElement("div");
-  div.innerHTML = `
-              <div
-                class="flex justify-between items-center mt-2 shadow-sm py-3 px-3 bg-white rounded-lg"
-              >
-                <div>
-                  <h1 class="text-lg font-bold">${cartName}</h1>
-                  <p class="text-gray-500 mt-1">
-                    ৳ <span>${cartPrice}</span> x <span>1</span>
-                  </p>
-                </div>
 
-                <div
-                  class="hover:text-red-500 cursor-pointer hover:transition duration-300"
-                >
-                  <i class="fa-solid fa-x"></i>
-                </div>
-              </div>
-  `
-  addToCartContainer.append(div);
-}
+  let existingItem = [...addToCartContainer.children].find(item => {
+    return item.querySelector("h1").innerText === cartName;
+  });
+
+  if (existingItem) {
+
+    let qtySpan = existingItem.querySelector("#quantity");
+    let currentQty = parseInt(qtySpan.innerText);
+    qtySpan.innerText = currentQty + 1;
+
+  } else {
+
+    let div = document.createElement("div");
+    div.innerHTML = `
+      <div class="flex justify-between items-center mt-2 shadow-sm py-3 px-3 bg-white rounded-lg">
+        <div>
+          <h1 class="text-lg font-bold">${cartName}</h1>
+          <p class="text-gray-500 mt-1">
+            ৳ <span>${cartPrice}</span> x <span id="quantity">1</span>
+          </p>
+        </div>
+
+        <div class="delete-btn hover:text-red-500 cursor-pointer hover:transition duration-300">
+          <i class="fa-solid fa-x"></i>
+        </div>
+      </div>
+    `;
+    addToCartContainer.append(div);
+  }
+};
+
 
 
 loadCart();
